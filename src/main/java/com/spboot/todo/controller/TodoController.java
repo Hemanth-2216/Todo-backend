@@ -48,14 +48,12 @@ public class TodoController {
         return ResponseEntity.ok(task);
     }
 
-
-
-@PutMapping("/updatestatus/{userId}/{taskId}")
-public ResponseEntity<TodoDto> updateTaskStatus(
-        @PathVariable Long userId,
-        @PathVariable Long taskId,
-        @RequestBody TodoDto statusUpdate) {
-    TodoDto updatedTask = todoService.updateTaskStatus(userId, taskId, statusUpdate.isCompleted());
-    return ResponseEntity.ok(updatedTask);
-}
+    @PutMapping("/updatestatus/{userId}/{taskId}")
+    public ResponseEntity<TodoDto> updateTaskStatus(
+            @PathVariable Long userId,
+            @PathVariable Long taskId,
+            @RequestBody TodoDto statusUpdate) {
+        TodoDto updatedTask = todoService.updateTaskStatus(userId, taskId, statusUpdate.isCompleted());
+        return ResponseEntity.ok(updatedTask);
+    }
 }

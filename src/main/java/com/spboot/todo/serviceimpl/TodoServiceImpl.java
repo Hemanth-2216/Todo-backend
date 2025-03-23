@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+
 import com.spboot.todo.Dto.TodoDto;
 import com.spboot.todo.entity.Todo;
 import com.spboot.todo.entity.TodoId;
@@ -13,7 +15,6 @@ import com.spboot.todo.mapper.TodoMapper;
 import com.spboot.todo.repository.TodoRepository;
 import com.spboot.todo.repository.UserRepository;
 import com.spboot.todo.service.TodoService;
-import org.springframework.http.HttpStatus;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -36,7 +37,6 @@ public class TodoServiceImpl implements TodoService {
         Todo savedTask = todoRepo.save(todo);
         return TodoMapper.maptoTodoDto(savedTask);
     }
-
 
     @Override
     public TodoDto updateTask(Long userId, Long taskId, TodoDto todoUpdate) {
@@ -78,14 +78,10 @@ public class TodoServiceImpl implements TodoService {
         return TodoMapper.maptoTodoDto(task);
     }
 
-
-	@Override
-	public TodoDto updateTaskStatus(Long userId, Long taskId, boolean completed) {
-		
-		TodoDto todo = getTaskById(userId, taskId);
-	    todo.setCompleted(completed);
-	    return updateTask(userId, taskId, todo);
-
-	
-	}
+    @Override
+    public TodoDto updateTaskStatus(Long userId, Long taskId, boolean completed) {
+        TodoDto todo = getTaskById(userId, taskId);
+        todo.setCompleted(completed);
+        return updateTask(userId, taskId, todo);
+    }
 }

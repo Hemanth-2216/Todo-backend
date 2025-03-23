@@ -7,6 +7,7 @@ import com.spboot.todo.entity.User;
 
 public class TodoMapper {
 
+    // Mapping from Todo entity to TodoDto
     public static TodoDto maptoTodoDto(Todo todo) {
         if (todo == null || todo.getId() == null) {
             throw new IllegalArgumentException("Todo or TodoId cannot be null");
@@ -21,17 +22,18 @@ public class TodoMapper {
         );
     }
 
-    public static Todo maptoTodoEntity(Long userId, Long taskId, TodoDto tododto, User user) {
-        if (tododto == null || user == null) {
+    // Mapping from TodoDto to Todo entity (for POST or PUT requests)
+    public static Todo maptoTodoEntity(Long userId, Long taskId, TodoDto todoDto, User user) {
+        if (todoDto == null || user == null) {
             throw new IllegalArgumentException("TodoDto or User cannot be null");
         }
 
         return new Todo(
-            new TodoId(userId, taskId),  // Setting composite key
-            tododto.getTitle(),
-            tododto.getDescription(),
-            tododto.isCompleted(),
-            user
+            new TodoId(userId, taskId),  // Creating composite key with userId and taskId
+            todoDto.getTitle(),
+            todoDto.getDescription(),
+            todoDto.isCompleted(),
+            user  // Associating the task with the user
         );
     }
 }
