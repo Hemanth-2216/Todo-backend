@@ -1,5 +1,6 @@
 package com.spboot.todo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,7 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"todos", "password", "roles", "status", "email"}) 
+    // ✅ Prevent infinite loop and hide sensitive data
     private User user;
 }
